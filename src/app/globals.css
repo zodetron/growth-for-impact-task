@@ -1,26 +1,630 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ------------------------------------------------------------------
+   Tokens — solid, neutral surfaces; one restrained accent.
+   ------------------------------------------------------------------ */
+:root {
+  --bg: #f2f2f7;
+  --surface: #ffffff;
+  --surface-2: #f7f7fa;
+  --surface-3: #ececf1;
+  --border: #e3e3e8;
+  --border-strong: #d1d1d6;
+  --fg: #1d1d1f;
+  --muted: #6e6e73;
+  --faint: #a1a1a6;
+  --accent: #0071e3;
+  --accent-hover: #0077ed;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(0, 113, 227, 0.1);
+  --lca: #248a3d;
+  --ux: #5856d6;
+  --both: #007aff;
+  --warn: #c93400;
+  --bad: #d70015;
+  --neutral: #8e8e93;
+  --ok: #248a3d;
+  --tier-strong: #34c759;
+  --tier-good: #007aff;
+  --tier-possible: #ff9500;
+  --tier-low: #c7c7cc;
+  --sidebar: rgba(246, 246, 249, 0.78);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.04), 0 12px 32px -12px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 24px 80px -12px rgba(0, 0, 0, 0.3);
+  --g-top: rgba(255, 255, 255, 0.95);
+  --g-bottom: rgba(255, 255, 255, 0.62);
+  --g-border: rgba(0, 0, 0, 0.09);
+  --g-hi: rgba(255, 255, 255, 1);
+  --g-lo: rgba(0, 0, 0, 0.05);
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --bg: #000000;
+    --surface: #1c1c1e;
+    --surface-2: #242426;
+    --surface-3: #2c2c2e;
+    --border: #2f2f32;
+    --border-strong: #3a3a3c;
+    --fg: #f5f5f7;
+    --muted: #98989d;
+    --faint: #636366;
+    --accent: #0a84ff;
+    --accent-hover: #409cff;
+    --accent-ink: #ffffff;
+    --accent-soft: rgba(10, 132, 255, 0.16);
+    --lca: #30d158;
+    --ux: #7d7aff;
+    --both: #0a84ff;
+    --warn: #ff9f0a;
+    --bad: #ff453a;
+    --neutral: #8e8e93;
+    --ok: #30d158;
+    --tier-strong: #30d158;
+    --tier-good: #0a84ff;
+    --tier-possible: #ff9f0a;
+    --tier-low: #48484a;
+    --sidebar: rgba(28, 28, 30, 0.72);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.4), 0 12px 32px -12px rgba(0, 0, 0, 0.7);
+    --shadow-lg: 0 24px 80px -12px rgba(0, 0, 0, 0.8);
+    --g-top: rgba(255, 255, 255, 0.13);
+    --g-bottom: rgba(255, 255, 255, 0.05);
+    --g-border: rgba(255, 255, 255, 0.12);
+    --g-hi: rgba(255, 255, 255, 0.22);
+    --g-lo: rgba(0, 0, 0, 0.4);
+    color-scheme: dark;
   }
 }
 
+:root[data-theme="dark"] {
+  --bg: #000000;
+  --surface: #1c1c1e;
+  --surface-2: #242426;
+  --surface-3: #2c2c2e;
+  --border: #2f2f32;
+  --border-strong: #3a3a3c;
+  --fg: #f5f5f7;
+  --muted: #98989d;
+  --faint: #636366;
+  --accent: #0a84ff;
+  --accent-hover: #409cff;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(10, 132, 255, 0.16);
+  --lca: #30d158;
+  --ux: #7d7aff;
+  --both: #0a84ff;
+  --warn: #ff9f0a;
+  --bad: #ff453a;
+  --neutral: #8e8e93;
+  --ok: #30d158;
+  --tier-strong: #30d158;
+  --tier-good: #0a84ff;
+  --tier-possible: #ff9f0a;
+  --tier-low: #48484a;
+  --sidebar: rgba(28, 28, 30, 0.72);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.4), 0 12px 32px -12px rgba(0, 0, 0, 0.7);
+  --shadow-lg: 0 24px 80px -12px rgba(0, 0, 0, 0.8);
+  --g-top: rgba(255, 255, 255, 0.13);
+  --g-bottom: rgba(255, 255, 255, 0.05);
+  --g-border: rgba(255, 255, 255, 0.12);
+  --g-hi: rgba(255, 255, 255, 0.22);
+  --g-lo: rgba(0, 0, 0, 0.4);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-lca: var(--lca);
+  --color-ux: var(--ux);
+  --color-both: var(--both);
+  --color-warn: var(--warn);
+  --color-bad: var(--bad);
+  --color-ok: var(--ok);
+  --color-neutral: var(--neutral);
+  --color-line: var(--border);
+  --font-sans: var(--font-gsans);
+  --font-mono: var(--font-gcode);
+}
+
+@layer components {
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+}
+body {
+  font-family: var(--font-gsans), -apple-system, BlinkMacSystemFont, "SF Pro Text", ui-sans-serif, system-ui, sans-serif;
+  font-size: 14px;
+  letter-spacing: -0.006em;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ------------------------------------------------------------------
+   Solid surfaces
+   ------------------------------------------------------------------ */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+}
+.well {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+.divide-line > * + * {
+  border-top: 1px solid var(--border);
+}
+
+.row {
+  transition: background-color 0.12s ease;
+}
+.row:hover {
+  background: var(--surface-2);
+}
+.row[data-active="true"] {
+  background: var(--accent-soft);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+/* ------------------------------------------------------------------
+   Liquid glass — buttons & controls only
+   ------------------------------------------------------------------ */
+.btn,
+.glass-btn {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  height: 2.25rem;
+  padding: 0 0.95rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 560;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  color: var(--fg);
+  background: linear-gradient(180deg, var(--g-top), var(--g-bottom));
+  border: 1px solid var(--g-border);
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 var(--g-hi),
+    inset 0 -1px 0 var(--g-lo),
+    0 1px 2px rgba(0, 0, 0, 0.06),
+    0 3px 10px -4px rgba(0, 0, 0, 0.16);
+  overflow: hidden;
+  transition:
+    transform 0.16s cubic-bezier(0.2, 0.9, 0.2, 1),
+    box-shadow 0.16s ease,
+    background 0.16s ease,
+    opacity 0.16s;
+}
+/* specular sheen */
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 48% 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0));
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: -1;
+}
+/* soft refraction rim at the bottom */
+.btn::after {
+  content: "";
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: -40%;
+  height: 70%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.35), transparent);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: -1;
+}
+.btn:hover {
+  box-shadow:
+    inset 0 1px 0 var(--g-hi),
+    inset 0 -1px 0 var(--g-lo),
+    0 1px 2px rgba(0, 0, 0, 0.08),
+    0 6px 16px -6px rgba(0, 0, 0, 0.22);
+}
+.btn:active {
+  transform: scale(0.97);
+}
+.btn:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.btn-primary {
+  color: var(--accent-ink);
+  border-color: color-mix(in oklab, var(--accent) 70%, black);
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--accent) 78%, white),
+    color-mix(in oklab, var(--accent) 92%, transparent) 55%,
+    var(--accent)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 1px 2px rgba(0, 0, 0, 0.12),
+    0 6px 16px -6px color-mix(in oklab, var(--accent) 70%, transparent);
+}
+.btn-primary::before {
+  opacity: 0.4;
+}
+.btn-ghost {
+  /* default glass */
+}
+.btn-danger {
+  color: var(--bad);
+}
+.btn-icon {
+  width: 2.25rem;
+  padding: 0;
+}
+
+/* segmented control: solid track + glass thumb */
+.seg {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 9999px;
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+}
+.seg button {
+  position: relative;
+  height: 2rem;
+  padding: 0 0.95rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 550;
+  color: var(--muted);
+  white-space: nowrap;
+  border: 1px solid transparent;
+  transition:
+    color 0.15s,
+    background 0.15s,
+    box-shadow 0.15s;
+}
+.seg button:hover {
+  color: var(--fg);
+}
+.seg button[aria-selected="true"] {
+  color: var(--fg);
+  background: linear-gradient(180deg, var(--g-top), var(--g-bottom));
+  border-color: var(--g-border);
+  box-shadow:
+    inset 0 1px 0 var(--g-hi),
+    inset 0 -1px 0 var(--g-lo),
+    0 1px 2px rgba(0, 0, 0, 0.08),
+    0 2px 8px -3px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+}
+
+/* filter chips: plain until pressed, then glass */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  height: 1.75rem;
+  padding: 0 0.7rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 520;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  white-space: nowrap;
+  transition:
+    color 0.15s,
+    background 0.15s,
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+button.chip:hover {
+  color: var(--fg);
+  border-color: var(--border-strong);
+}
+.chip[aria-pressed="true"] {
+  color: var(--fg);
+  border-color: var(--g-border);
+  background: linear-gradient(180deg, var(--g-top), var(--g-bottom));
+  box-shadow:
+    inset 0 1px 0 var(--g-hi),
+    inset 0 -1px 0 var(--g-lo),
+    0 1px 2px rgba(0, 0, 0, 0.08),
+    0 0 0 2px var(--accent-soft);
+}
+/* static tag (not a control) */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  height: 1.375rem;
+  padding: 0 0.5rem;
+  border-radius: 6px;
+  font-size: 0.6875rem;
+  font-weight: 520;
+  color: var(--muted);
+  background: var(--surface-3);
+  white-space: nowrap;
+}
+
+.input {
+  height: 2.25rem;
+  width: 100%;
+  border-radius: 10px;
+  padding: 0 0.85rem 0 2.2rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 0.8125rem;
+  outline: none;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.input::placeholder {
+  color: var(--faint);
+}
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+select.input {
+  padding-right: 2rem;
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 15px) 52%,
+    calc(100% - 10px) 52%;
+  background-size:
+    5px 5px,
+    5px 5px;
+  background-repeat: no-repeat;
+}
+input[type="range"],
+input[type="checkbox"] {
+  accent-color: var(--accent);
+}
+
+.eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+mark {
+  background: color-mix(in oklab, var(--warn) 25%, transparent);
+  color: inherit;
+  border-radius: 2px;
+}
+
+.fade-in {
+  animation: fadeIn 0.25s ease both;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}
+.sheet-in {
+  animation: sheetIn 0.28s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+}
+@keyframes sheetIn {
+  from {
+    transform: translateX(24px);
+    opacity: 0;
+  }
+}
+.pop-in {
+  animation: popIn 0.22s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+}
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+}
+.shimmer {
+  background: linear-gradient(90deg, var(--surface-2) 0%, var(--surface-3) 50%, var(--surface-2) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+.spin {
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------------
+   Apple-style chrome
+   ------------------------------------------------------------------ */
+.vibrancy {
+  background: var(--sidebar);
+  backdrop-filter: blur(30px) saturate(190%);
+  -webkit-backdrop-filter: blur(30px) saturate(190%);
+}
+.toolbar {
+  background: color-mix(in oklab, var(--bg) 78%, transparent);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  height: 2.1rem;
+  padding: 0 0.65rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 560;
+  color: var(--fg);
+  transition: background 0.12s;
+  width: 100%;
+  text-align: left;
+}
+.nav-item:hover {
+  background: color-mix(in oklab, var(--fg) 6%, transparent);
+}
+.nav-item[aria-current="page"] {
+  background: var(--accent);
+  color: #fff;
+}
+.nav-item[aria-current="page"] .nav-count {
+  color: rgba(255, 255, 255, 0.85);
+}
+.nav-count {
+  margin-left: auto;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+.large-title {
+  font-size: 2.125rem;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.028em;
+}
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+}
+.num {
+  font-variant-numeric: tabular-nums;
+  font-weight: 750;
+  letter-spacing: -0.03em;
+}
+.glist {
+  background: var(--surface);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.glist > * + * {
+  box-shadow: inset 0 1px 0 var(--border);
+}
+
+}
+
+/* Liquid glass stat tiles (overview) */
+@layer components {
+  .glass-tile-wrap {
+    position: relative;
+    isolation: isolate;
+  }
+  .glass-tile-wrap::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -16px;
+    right: 28px;
+    width: 92px;
+    height: 92px;
+    border-radius: 9999px;
+    background: radial-gradient(circle at 40% 40%, color-mix(in oklab, var(--tile-tint) 85%, white), var(--tile-tint) 60%, transparent 72%);
+    filter: blur(4px);
+    opacity: 0.6;
+    transition: opacity 0.3s, transform 0.4s cubic-bezier(0.2, 0.9, 0.2, 1);
+  }
+  .glass-tile-wrap:hover::before {
+    opacity: 0.75;
+    transform: translate(-6px, 4px) scale(1.05);
+  }
+  .glass-tile {
+    position: relative;
+    overflow: hidden;
+    border-radius: 22px;
+    background: linear-gradient(160deg, color-mix(in oklab, var(--surface) 62%, transparent), color-mix(in oklab, var(--surface) 30%, transparent));
+    backdrop-filter: blur(18px) saturate(200%);
+    -webkit-backdrop-filter: blur(18px) saturate(200%);
+    border: 1px solid var(--g-border);
+    box-shadow:
+      inset 0 1px 0 var(--g-hi),
+      inset 0 -1px 0 var(--g-lo),
+      inset 0 0 0 1px color-mix(in oklab, white 8%, transparent),
+      0 1px 2px rgba(0, 0, 0, 0.05),
+      0 14px 34px -14px rgba(0, 0, 0, 0.22);
+    transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 0.2s;
+  }
+  .glass-tile:hover {
+    transform: translateY(-2px);
+  }
+  /* specular sheen */
+  .glass-tile::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 55% 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  /* curved highlight edge */
+  .glass-tile::after {
+    content: "";
+    position: absolute;
+    top: -40%;
+    left: -20%;
+    width: 70%;
+    height: 120%;
+    background: radial-gradient(closest-side, rgba(255, 255, 255, 0.35), transparent);
+    transform: rotate(-18deg);
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  .glass-tile > * {
+    position: relative;
+    z-index: 1;
+  }
 }
